@@ -1,0 +1,4 @@
+#ignore install files
+installers/*.rpm
+installers/*.jar
+
