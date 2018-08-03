@@ -2,8 +2,8 @@
 #
 # Default domain 'base_domain' to be created inside the Docker image for WLS
 # 
-# Since : October, 2014
-# Author: bruno.borges@oracle.com
+# Since : August, 2018
+# Author: daniel.r.junior@oracle.com
 # ==============================================
 admin_port = int(os.environ.get("ADMIN_PORT", "8001"))
 admin_pass = os.environ.get("ADMIN_PASSWORD", "welcome1")
@@ -26,24 +26,24 @@ cmo.setPassword(admin_pass)
 
 # Create a JMS Server
 # ===================
-cd('/')
-create('myJMSServer', 'JMSServer')
+#cd('/')
+#create('myJMSServer', 'JMSServer')
 
 # Create a JMS System resource
 # ============================
-cd('/')
-create('myJmsSystemResource', 'JMSSystemResource')
-cd('JMSSystemResource/myJmsSystemResource/JmsResource/NO_NAME_0')
+#cd('/')
+#create('myJmsSystemResource', 'JMSSystemResource')
+#cd('JMSSystemResource/myJmsSystemResource/JmsResource/NO_NAME_0')
 
 # Create a JMS Queue and its subdeployment
 # ========================================
-myq=create('myQueue','Queue')
-myq.setJNDIName('jms/myqueue')
-myq.setSubDeploymentName('myQueueSubDeployment')
+#myq=create('myQueue','Queue')
+#myq.setJNDIName('jms/myqueue')
+#myq.setSubDeploymentName('myQueueSubDeployment')
 
-cd('/')
-cd('JMSSystemResource/myJmsSystemResource')
-create('myQueueSubDeployment', 'SubDeployment')
+#cd('/')
+#cd('JMSSystemResource/myJmsSystemResource')
+#create('myQueueSubDeployment', 'SubDeployment')
 
 # Create and configure a JDBC Data Source, and sets the JDBC user
 # ===============================================================
@@ -76,9 +76,9 @@ create('myQueueSubDeployment', 'SubDeployment')
 
 # Target resources to the servers 
 # ===============================
-cd('/')
-assign('JMSServer', 'myJMSServer', 'Target', 'AdminServer')
-assign('JMSSystemResource.SubDeployment', 'myJmsSystemResource.myQueueSubDeployment', 'Target', 'myJMSServer')
+#cd('/')
+#assign('JMSServer', 'myJMSServer', 'Target', 'AdminServer')
+#assign('JMSSystemResource.SubDeployment', 'myJmsSystemResource.myQueueSubDeployment', 'Target', 'myJMSServer')
 # assign('JDBCSystemResource', 'myDataSource', 'Target', 'AdminServer')
 
 # Write the domain and close the domain template
@@ -88,7 +88,7 @@ setOption('ServerStartMode','prod')
 
 cd('/')
 cd('NMProperties')
-set('ListenAddress','')
+set('ListenAddress','localhost')
 set('ListenPort',5556)
 set('NativeVersionEnabled', 'false')
 set('StartScriptEnabled', 'false')
@@ -101,10 +101,10 @@ closeTemplate()
 
 # Enable JAX-RS 2.0 by default on this domain
 # ===========================================
-readDomain(domain_path)
-addTemplate('/u01/oracle/jaxrs2-template.jar')
-updateDomain()
-closeDomain()
+#readDomain(domain_path)
+#addTemplate('/u01/oracle/jaxrs2-template.jar')
+#updateDomain()
+#closeDomain()
 
 # Exit WLST
 # =========

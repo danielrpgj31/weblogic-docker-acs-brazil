@@ -37,7 +37,7 @@ MAINTAINER Daniel Ribeiro Junior <daniel.r.junior@oracle.com>
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
 ENV JAVA_RPM jdk-8u181-linux-x64.rpm
-ENV WLS_PKG fmw_12.1.3.0_wls.jar
+ENV WLS_PKG fmw_12.2.1.3.0_wls.jar
 ENV JAVA_HOME /usr/java/default
 ENV CONFIG_JVM_ARGS -Djava.security.egd=file:/dev/./urandom
 
@@ -65,9 +65,9 @@ RUN sed -i '/.*EOF/d' /etc/security/limits.conf && \
     echo "# EOF"  >> /etc/security/limits.conf
 
 # Change the kernel parameters that need changing.
-RUN echo "net.core.rmem_max=4192608" > /u01/oracle/.sysctl.conf && \
-    echo "net.core.wmem_max=4192608" >> /u01/oracle/.sysctl.conf && \ 
-    sysctl -e -p /u01/oracle/.sysctl.conf
+#RUN echo "net.core.rmem_max=4192608" > /u01/oracle/.sysctl.conf && \
+#    echo "net.core.wmem_max=4192608" >> /u01/oracle/.sysctl.conf && \ 
+#    sysctl -e -p /u01/oracle/.sysctl.conf
 
 # Adjust file permissions, go to /u01 as user 'oracle' to proceed with WLS installation
 RUN chown oracle:oracle -R /u01

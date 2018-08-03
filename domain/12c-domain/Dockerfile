@@ -4,7 +4,7 @@
 # --------------------------
 # This Dockerfile extends the Oracle WebLogic image by creating a sample domain.
 #
-# The 'base-domain' created here has Java EE 7 APIs enabled by default:
+# The 'serverless-domain' created here has Java EE 7 APIs enabled by default:
 #  - JAX-RS 2.0 shared lib deployed
 #  - JPA 2.1, 
 #  - WebSockets and JSON-P
@@ -21,11 +21,11 @@
 
 # Pull base image
 # ---------------
-FROM oracle/weblogic:12.1.3-dev
+FROM oracle/weblogic:12.2.1.3
 
 # Maintainer
 # ----------
-MAINTAINER Bruno Borges <bruno.borges@oracle.com>
+MAINTAINER Daniel Ribeiro <daniel.r.junior@oracle.com>
 
 # WLS Configuration
 # -------------------------------
@@ -65,3 +65,6 @@ ENV PATH $PATH:/u01/oracle/weblogic/wlserver/common/bin:/u01/oracle/weblogic/use
 
 # Define default command to start bash. 
 CMD ["startWebLogic.sh"]
+
+# Deploy Application
+RUN /u01/oracle/weblogic/wlserver/common/bin/wlst.sh -skipWLSModuleScanning /u01/oracle/deploy-app.py
