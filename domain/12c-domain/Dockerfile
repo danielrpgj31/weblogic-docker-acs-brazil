@@ -53,6 +53,7 @@ RUN /u01/oracle/weblogic/wlserver/common/bin/wlst.sh -skipWLSModuleScanning /u01
     echo "password=$ADMIN_PASSWORD" >> /u01/oracle/weblogic/user_projects/domains/base_domain/servers/AdminServer/security/boot.properties && \
     echo ". /u01/oracle/weblogic/user_projects/domains/base_domain/bin/setDomainEnv.sh" >> /u01/oracle/.bashrc && \ 
     echo "export PATH=$PATH:/u01/oracle/weblogic/wlserver/common/bin:/u01/oracle/weblogic/user_projects/domains/base_domain/bin" >> /u01/oracle/.bashrc && \
+    tar -xzvf /u01/oracle/classes.tar.gz -C /u01/oracle && \
     rm /u01/oracle/create-wls-domain.py /u01/oracle/jaxrs2-template.jar 
 
 # Expose Node Manager default port, and also default http/https ports for admin console
@@ -64,7 +65,8 @@ WORKDIR /u01/oracle
 ENV PATH $PATH:/u01/oracle/weblogic/wlserver/common/bin:/u01/oracle/weblogic/user_projects/domains/base_domain/bin:/u01/oracle
 
 # Define default command to start bash. 
-CMD ["startWebLogic.sh"]
+CMD ["runWeblogicFunction.sh"]
+#CMD ["/bin/bash"] 
 
 # Deploy Application
 RUN /u01/oracle/weblogic/wlserver/common/bin/wlst.sh -skipWLSModuleScanning /u01/oracle/deploy-app.py
